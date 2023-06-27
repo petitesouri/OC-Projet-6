@@ -1,47 +1,39 @@
-const form = document.querySelector('#connexion');
+const form = document.querySelector('form');
 
-form.addEventListener('submit', (event) =>{
+form.addEventListener('submit', async (event) =>  {
     event.preventDefault();
 
-    const Email = document.querySelector('#IdEmail');
-    Email.addEventListener ( 'change' , async function(){
-    });
-
-    const IdPassword = document.querySelector('#password');
-    IdPassword.addEventListener ( 'change' , async function() {
-    });
-
-    //const response = fetch ('http://localhost:5678/api/users/login');
-    //const logIn = response.json();
-    const logIn = fetch ('http://localhost:5678/api/users/login');
-    const checkLogIn = logIn.json;
-
-    if (Email.value == logIn.userId && IdPassword.value == logIn.token){
-        verif = true;
-    } else {
-        verif = false;
+    // Tu les formattes directement avec du json en les récupérant depuis les champs
+    // Tu utilises formData pour récupérer les données
+    const datas = {
+        email: form.email.value,
+        password: form.password.value
     }
-});
 
+    const req = await fetch("http://localhost:5678/api/users/login",{
+                    method: 'POST',
+                    headers: {"content-type": "application/json"},
+                    body: JSON.stringify(datas)
+                })
+    const data = await req.json();
 
-
-
-/* on submit 
-let form = document.querySelector (form);
-
-form.addEventListener('submit', (event) =>{
-    event.preventDefault();
-
-    let currentEmail = Email.value;
-    let currentPassword = IdPassword.value;
-
-    console.log("Il n’y a pas eu de rechargement de page", currentEmail, currentPassword);
-
+    // Si j'obtiens un objet avec "message", c'est qu'il y a une erreur
+    // Si j'obtiens un objet avec "error", c'est qu'il y a une erreur
+    // Si j'obtiens un objet avec "token", c'est que l'utilisateur est connecté, on stock le token et on redirige vers la page accueil avec les données administrateurs
+    if (data.message || data.error) {
+        alert("Utilisateur ou mot de passe incorrect");
+    } 
     
-et que IdEmail || IdPassword = vrai
-alors redirection vers la page du site de modification
- si non => message d'erreur
+    if (data.token) {
+        localStorage.setItem('token', data.token);
+        window.location.href = "index.html";
+    }
 
+    // fetch("http://localhost:5678/api/users/login",{
+    //     method: 'POST',
+    //     headers: {"content-type": "application/json"},
+    //     body: JSON.stringify(datas)
+    // })
+    //     .then(response => response.json())
+    //     .then(data => console.log(data))
 });
-
-faire le logOut */

@@ -30,7 +30,13 @@ async function callApiFilters(){
     const fetcher = await fetch(url);
     const Categories = await fetcher.json();
 
-    function showButtons() {
+    function showButtons() {        
+        const button = `
+            <button class="tous">
+                Tous
+            </button>`                
+        document.querySelector('.filters').insertAdjacentHTML("beforeend", button)
+        
         for (let i = 0; i < Categories.length; i++) {
             const button = `
             <button class="${Categories[i].id}">
@@ -69,7 +75,7 @@ async function callApiFilters(){
                 })
 
                 // affichage des works filtrés
-                function showWorks(){           
+                function showWorksFilter(){           
                     const sectionGallery = document.querySelector('.gallery'); 
 
                     foundWork.forEach(project => {
@@ -84,7 +90,27 @@ async function callApiFilters(){
                         sectionGallery.insertAdjacentHTML("beforeend", projectElement)
                     })
                 }  
-                showWorks();                 
+                // si "tous" alors affiche la gallery sinon affiche les works filtrés
+                if (idButtonHtml == 'tous') {
+                    function showWorks(){            
+                        const sectionGallery = document.querySelector('.gallery');
+                        
+                        Gallery.forEach(project => {
+                            const projectElement = `
+                                <figure>
+                                    <img src="${project.imageUrl}" alt="${project.title}">
+                                    <figcaption>
+                                    ${project.title}
+                                    </figcaption>
+                                </figure>
+                            `        
+                            sectionGallery.insertAdjacentHTML("beforeend", projectElement)
+                        })
+                    }
+                    showWorks();
+                } else {
+                    showWorksFilter();
+                }                
             })
         })
     }
