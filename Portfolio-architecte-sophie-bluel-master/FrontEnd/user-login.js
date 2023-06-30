@@ -21,19 +21,30 @@ form.addEventListener('submit', async (event) =>  {
     // Si j'obtiens un objet avec "error", c'est qu'il y a une erreur
     // Si j'obtiens un objet avec "token", c'est que l'utilisateur est connecté, on stock le token et on redirige vers la page accueil avec les données administrateurs
     if (data.message || data.error) {
-        alert("Utilisateur ou mot de passe incorrect");
-    } 
-    
-    if (data.token) {
-        localStorage.setItem('token', data.token);
-        window.location.href = "index.html";
-    }
+        function showMessage() {
+            const positionMessage = document.querySelector('#login-form');
 
-    // fetch("http://localhost:5678/api/users/login",{
-    //     method: 'POST',
-    //     headers: {"content-type": "application/json"},
-    //     body: JSON.stringify(datas)
-    // })
-    //     .then(response => response.json())
-    //     .then(data => console.log(data))
+            const textMessage = `  
+                <div class="alert"> 
+                    Erreur dans l’identifiant ou le mot de passe 
+                </div>           
+                `;
+            positionMessage.insertAdjacentHTML('beforeend', textMessage);
+            document.querySelector('.alert').style.color = 'red';
+        }
+        showMessage();
+
+        // effacer alerte au click sur la page
+        const body = document.querySelector('body');
+        body.addEventListener ('click',() => {
+            const positionMessage = document.querySelector('#login-form .alert'); 
+            positionMessage.remove(); 
+            form.reset();
+        });  
+    };
+    
+    if (data.token) {       
+        localStorage.setItem('token', 'admin');
+        window.location.href = "index.html";
+    }   
 });

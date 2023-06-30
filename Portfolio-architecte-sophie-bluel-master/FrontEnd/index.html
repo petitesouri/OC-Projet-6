@@ -9,16 +9,29 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<script src="https://kit.fontawesome.com/97e2a1677c.js" crossorigin="anonymous"></script>
 	<script type="module" src="portfolio.js"></script>
+	<script type="module" src="user-login.js"></script>
+	<script type="module" src="edit-page.js"></script>
 </head>
 <body>
+	<div class="edit-nav">
+        <ul class="edit-nav-list">
+            <li class="edit-nav-list-item">
+				<a href="#">
+					<i class="fa-regular fa-pen-to-square"></i>Mode édition
+				</a>
+			</li>
+            <li class="edit-nav-list-item"><a href="#">Publier les changements</a></li>
+		</ul>
+	</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<a href="./login-page.html"><li>login</li></a>
+			<a class="login" href="./login-page.html"><li>login</li></a>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -27,6 +40,7 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
+			<div class="edit-Mode-Title"><i class="fa-regular fa-pen-to-square"></i>Modifier</div>
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -36,7 +50,10 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="portfolio-title">
+			<h2>Mes Projets</h2>
+			<p class="edit-Mode-Portfolio"><i class="fa-regular fa-pen-to-square"></i>Modifier</p>
+		</div>
 		<div class="filters"></div>
 		<div class="gallery"></div>
 	</section>
