@@ -49,6 +49,11 @@ table {
 /** end reset css**/
 * {
 	background-color: #FFFEF8;
+	box-sizing: border-box;
+}
+
+*:focus {
+	box-shadow: 0 0 2px blue;	
 }
 
 body {
@@ -126,13 +131,6 @@ li:hover {
 	display: block;
 	margin: auto;
 	width: 80%;
-}
-
-#introduction .edit-Mode-Title {
-	display: none;
-	position: relative;
-	left: 3.5rem;
-	margin-top: 1rem;
 }
 
 #introduction article {
@@ -251,6 +249,14 @@ footer nav ul {
 
 /** login Page  **/
 
+.header-login-page nav ul {
+	gap: 44px;
+}
+
+.header-login-page nav ul li{
+	padding: 0;
+}
+
 .main-login-page {
 	width: 37%;
 	margin: 131px auto;
@@ -302,37 +308,142 @@ footer nav ul {
 }
 
 /** Edit Homepage **/
-.edit-nav,.edit-nav .edit-nav-list,.edit-nav .edit-nav-list-item,.edit-nav .edit-nav-list-item .fa-pen-to-square,.edit-nav .edit-nav-list-item a{
+.edit-nav{
 	background-color: black;
 }
 .edit-nav{
 	width: 100%;
 	height: 59px;
-	display: none;
-	justify-content: center;
-	align-items: center;
-}
-.edit-nav .edit-nav-list{
 	display: flex;
 	justify-content: center;
-	gap: 25px;
+	align-items: center;
+	gap: 21px;
 }
-.edit-nav .edit-nav-list-item{
-	padding: 9px 13px;
-}
-.edit-nav .edit-nav-list-item .fa-pen-to-square{
-	color: white;
-	margin-right: 10px;
-}
-.edit-nav .edit-nav-list-item a{
-	color: white;
+.js-modal{
 	font-family: "work Sans";
 	font-size: 14px;
 	font-weight: 500;
-	padding: 9px 13px;
+	border: none;
+	display: flex;
+	gap: 8px;
+	margin-bottom: 0;
 }
-.edit-nav-list-item a:hover{
+
+.js-modal.header {
+	background-color: black;
+	color: white;
+	padding: 9px 13px;
+	&:hover{
+		color: black;
+		background-color: white;
+		border-radius: 30px;
+		.fa-pen-to-square {
+			background-color: #FFFFFF;
+		}
+	}
+	.fa-pen-to-square {
+		background-color: black;
+	}
+}
+
+button.js-modal.main {
+	/* ne met pas de position relative */
 	color: black;
-	background-color: white;
-	border-radius: 15px;
+	border: none;
+	padding: 15px;
+	&:hover {
+		background-color: #FFFFFF;
+	}
+}
+#introduction .js-modal {
+	margin-left:40px;
+}
+#portfolio .js-modal {
+	position: relative;
+	bottom: 65px;
+	left: 162px;
+	margin: auto;
+}
+
+/** modal **/
+#modal1 {
+	position: fixed;
+	z-index: 1;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+.dialogBox {
+	background-color: #FFFFFF;
+	width: 630px;
+	height: 731px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+}
+.js-modal-close {
+	font-size: 24px;
+	align-self: flex-end;
+	padding: 0;
+	margin: 26px 30px 0 0;
+	border: none;
+}
+.title-modal {
+	color: black;
+	font-family: 'Work Sans';
+	font-size: 26px;
+	font-weight: 400;
+}
+.add-project, .delete-project {
+	font-family: 'Syne';
+	font-size: 14px;
+	font-weight: 400;
+	margin: 0;
+}
+.add-project {
+	color: #FFFFFF;
+	background-color: #1D6154;
+	width: 237px;
+	height: 36px;
+	border-radius: 60px;
+	margin-top: 38px;
+}
+.delete-project {
+	color: red;
+	border: none;
+}
+.modal-gallery {
+	width: 72%;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 7px;
+	margin: 36px auto 0 auto;
+	padding: 0 0 65px 0;
+	border-bottom: 1px solid #B3B3B3;
+}
+.modal-cards {
+	width: 78px;
+	height: 119px;
+	position: relative;
+}
+.modal-cards img {
+	width: 100%;
+	height: 87%;
+}
+.modal-cards .fa-trash-can {
+	color: #FFFFFF;
+	font-size: 9px;
+	background-color: black;
+	border-radius: 2px;
+	padding: 4px;
+	position: absolute;
+	top: 6px;
+	right: 6px;
 }

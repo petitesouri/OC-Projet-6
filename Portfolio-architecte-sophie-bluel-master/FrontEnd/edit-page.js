@@ -1,25 +1,61 @@
-// affichage page d'accueil si localstorage est true
+// insertion des éléments page d'acceuil mode edit
 
 if (localStorage.getItem('token') != null) {
-    const editNav = document.querySelector('.edit-nav');
-    const editModeIntroduction = document.querySelector('.edit-Mode-Title');
-    const editModePortfolio = document.querySelector('.edit-Mode-Portfolio');
-    const headerLog = document.querySelector('.login');
-    const filters = document.querySelector('.filters');
+    
+    const headerEditMode = document.querySelector('header');
+    const introduction = document.querySelector('#introduction figure');
+    const filtersEdit = document.querySelector('.filters');
+    const portfolioEdit = document.querySelector('.gallery');
 
-    editNav.style = 'display:flex';
-    editModeIntroduction.style = 'display:flex';
-    editModePortfolio.style = 'display:flex';
-    headerLog.innerText = 'Logout';
-    headerLog.style = 'font-size:1.2em;';
-    filters.style = 'display:none';
-   
+    const editIndex = `
+        <div class="edit-nav">                       
+            <button href="#modal1" class="js-modal header">
+                <i class="fa-regular fa-pen-to-square"></i>Mode édition
+            </button>
+            <button href="#modal1" class="js-modal header">Publier les changements</button>           
+        </div>
+    `
+    const editIntroduction = `
+        <button href="#modal1" class="js-modal main">
+            <i class="fa-regular fa-pen-to-square"></i>Modifier
+        </button>  
+    `
+
+    headerEditMode.insertAdjacentHTML('beforebegin', editIndex);
+    introduction.insertAdjacentHTML('beforeend', editIntroduction);
+    filtersEdit.style.display = 'none';
+    portfolioEdit.insertAdjacentHTML('beforebegin', editIntroduction);   
+       
+
+    // fonction logout
+
+    const login = document.querySelector('.login');
+    login.innerHTML = 'Logout';
+
+    login.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        window.location.href = 'index.html';
+    });
+    
+    // Ouverture et fermeture de la modale
+    const buttons = document.querySelectorAll('.js-modal')
+    const modal = document.querySelector('#modal1')
+    const close = document.querySelector('.js-modal-close')
+
+    function openmodal(e) {
+        e.preventDefault()        
+        modal.style.display = 'flex'
+    }
+
+    function closemodal(e) {
+        e.preventDefault()
+        modal.style.display = 'none'
+    }  
+    
+    buttons.forEach(button => {
+        button.addEventListener('click', openmodal)
+    })
+    close.addEventListener('click', closemodal)
 }
 
-const logout = document.querySelector('.login');
-
-logout.addEventListener('click', () => {
-    localStorage.clear();
-    // ATTENTION le renvoie sur la page d'accueil ne se fait pas
-    window.location.href = 'index.html';
-});
