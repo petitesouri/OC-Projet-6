@@ -30,11 +30,10 @@ async function callApiWorks(){
     
     function showWorks(){            
         const modalGallery = document.querySelector('.modal-gallery');
-        
         for (let i = 0; i < Gallery.length; i++) {
             const project = `
-            <figure class="modal-cards">
-                <i id="trash" class="fa-regular fa-trash-can"></i>
+            <figure  class="modal-cards ${Gallery[i].id}">
+                <i id="${Gallery[i].id}" class="fa-regular fa-trash-can"></i>
                 <img src="${Gallery[i].imageUrl}" alt="${Gallery[i].title}">
                 <figcaption>éditer</figcaption>
             </figure>             
@@ -53,86 +52,32 @@ async function deleteApiWorks(){
         const fetcher = await fetch(url);
         const Gallery = await fetcher.json();
 
-    const deleteProject = document.querySelectorAll('#trash');
+    const Trash = document.querySelectorAll('.fa-trash-can');   
+    const Cards = document.querySelectorAll('.modal-cards')
+
+    console.log(Cards)
     
-    
-// quand on clique sur un élément de la galerie effacer cet élément
-        let i = 0;
-        const project = Gallery[i];
-        
-    // mettre un foreach pour que la function s'applique à chaque deleteProject
-        console.log(deleteProject[i]) 
-        console.log(project.id) 
-        // quand je clique sur un deleteProject, on supprime le projet        
+    // Fonctionne en console.log ATTENTION  ma galerie est inversée --> voir le display sur la balise
+    Trash.forEach(icon => {
+        icon.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            for (let id of Gallery) {                 
+                if (id.id == icon.id) {  
+                    let currentID = id.id;
+                    let deleteCard = Cards[currentID];
+
+                    Gallery.splice({currentID},1);
+                    deleteCard.remove();
+                    console.log(Gallery)
+                // suppression du projet dans l'API   
+                    const htppRef = {id: parseInt(currentID)}
+                    const idAPI = JSON.stringify(htppRef)
+                    
+                    fetch(`http://localhost:5678/api/works/${currentID}`, {method: 'DELETE',body:idAPI}); 
+                }                
+            }      
+        })
+    })
 }
 deleteApiWorks()
-
-
-/*let modal = null;
-const focusableSelector = "button, a, input, textarea"
-let focusables = []
-let previouslyFocusElement = null
-
-
-const openmodal = function (e) {
-    e.preventDefault()
-
-modal = document.querySelector(e.target.getAttribute('href'))
-focusables = Array.from(modal.querySelectorAll(focusableSelector))
-previouslyFocusElement = document.querySelector(':focus')
-focusables[0].focus()
-    modal.style.display = null
-    modal.removeAttribute('aria-hidden')
-    modal.setAttribute('aria-modal', 'true')
-    modal.addEventListener('click',closeModal)
-    modal.querySelector('.js-modal-close').addEventListener('click',closeModal)
-    modal.querySelector('.js-modal-stop').addEventListener('click',stopPropagation)
-    }
-
-const closeModal = function (e) {
-    if (modal === null) return
-    if (previouslyFocusElement !== null) previouslyFocusElement.focus() 
-    e.preventDefault()
-    modal.style.display = 'none'
-    modal.setAttribute('aria-hidden','true')
-    modal.removeAttribute('aria-modal')
-    modal.removeEventListener('click',closeModal)
-    modal.querySelector('.js-modal-close').removeEventListener('click',closeModal)
-    modal.querySelector('.js-modal-stop').removeEventListener('click',stopPropagation)
-    modal = null
-    }
-
-const stopPropagation = function (e) {
-    e.stopPropagation()
-    }
-
-const focusInModal = function (e) {
-            e.preventDefault()
-            let index = focusables.findIndex(f => f === modal.querySelector(':focus'))
-            if (e.shiftKey === true) {
-                index--
-            } else {
-                index++
-            }
-            if (index >= focusables.length) {
-                index = 0
-            }
-            if (index < 0) {
-                index = focusables.length - 1
-            }
-            focusables[index].focus()
-        }
-
-document.querySelectorAll('.js-modal').forEach(a => {
-    a.addEventListener('click', openmodal)
-});
-
-window.addEventListener('keydown', function (e) {
-                if (e.key === "Escape" || e.key === "Esc") {
-                    closeModal(e)
-                }
-                if (e.key === "Tab" && modal!== null) {
-                    focusInModal(e)
-                }
-            })
-*/
