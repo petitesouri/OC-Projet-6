@@ -10,21 +10,24 @@ function addProject () {
         <h2 class="title-modal"> Ajout photo </h2> 
 
         <form id="addForm">
-            <label for="new-image">
+            <label for="new-image" class="image-fieldset">
                 <i class="fa-regular fa-image"></i>
+                <input id="new-image" type="file" name="imageUrl" accept=".jpg,.jpeg, .png"></input>
+                <button class="add-button">+ Ajouter photo</button>
+                <span class="image-fieldset__span">jpg, png : 4mo max </span>
+                <div class="preview-box">
+                    <img id="preview">
+                </div>
             </label>
-            <input id="new-image" type="file" name="imageUrl" accept=".jpg,.jpeg, .png">
-            <div class="preview-box">
-                <img id="preview">
+            <div class = "choice-fieldset">
+                <label for="new-title" class="title-fieldset">Titre </label>
+                <input type="text" name="title" id="new-title">
+                <label for="choice-category" class="category-fieldset">Catégorie </label>
+                <select name="categoryId" id="choice-category">
+                        <option value=""></option>   
+                </select>
             </div>
-            <label for="new-title">Titre </label>
-            <input type="text" name="title" id="new-title">
-            <label for="choice-category">Catégorie </label>
-            <select name="categoryId" id="choice-category">
-                    <option value=""></option>   
-            </select>
-
-            <button class='submitButton'>Bouton</button>
+            <button class='submitButton'>Valider</button>
         </form>
     </div>
     `
@@ -108,7 +111,6 @@ function sendForm (e) {
     const image = document.querySelector('#new-image').value;
     //const userId = formData.append('userId', '0')
     //const newForm = {id: Number(id), title, image, categoryId, userId: Number(userId)}
-
     const newForm = {'title': title, 'imageUrl': image, 'categoryId' : categoryId}
     saveFormData(newForm);
     AuthorizationAPI();
@@ -136,6 +138,7 @@ async function sendAPI () {
         method: 'POST',
         headers: {
             'content-Type': "multipart/form-data,",
+            //'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
         body: `${localStorage.getItem('Forms')}`,
     });

@@ -347,7 +347,6 @@ footer nav ul {
 }
 
 button.js-modal.main {
-	/* ne met pas de position relative */
 	color: black;
 	border: none;
 	padding: 15px;
@@ -474,52 +473,42 @@ button.js-modal.main {
 		margin: 0;
 	}
 }
-.modal-add-project form{
+#addForm {
 	width: 74%;
 	background-color: #FFFFFF;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	gap: 10px;
 }
-#image-fieldset {
-	width: 100%;
+.image-fieldset {
 	height: 169px;
 	background-color: #E8F1F6;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: 7px;
-	padding: 21px 0;
+	margin: 20px 0 10px 0;
+	position: relative;
 	.fa-image {
 		color: #B9C5CC;
 		font-size: 58px;
 		background-color: #E8F1F6;
-		margin: 8px;
+		margin: 22px 0 15px 0;
 	}
 }
-#new-image input{
-	height: 36px;
-}
-.preview-box {
-	width: 90%;
-	height: 169px;
-	background-color: #E8F1F6;
-	display: none;
-    position: relative;
-    bottom: 110px;	
-}
-#preview {
-	height: 100%;
-	display: flex;
-	justify-content: space-between;
-	margin: auto;
-}
-#image-fieldset span {
+.image-fieldset__span {
 	font-family: 'Work Sans';
 	font-size: 10px;
 	background-color: #E8F1F6;
+	margin-bottom: 10px;
 }
-#new-image {
+input[type="file" i] {
+	opacity: 0;
+	position: absolute;
+	top: 110px;
+	left: 150px;
+}
+#new-image input{
     width: 35%;
 	height: 36px;
 	color: #306685;
@@ -527,28 +516,44 @@ button.js-modal.main {
 	background-color: #CBD6DC;
 	border: none;
 	border-radius: 50px;
+	margin-bottom: 0;
+}
+.add-button {
+	margin-bottom: 0;
+}
+.preview-box {
+	width: 90%;
+	height: 168.5px;
+	background-color: #E8F1F6;
+	display: none;
+    position: relative;
+    bottom: 171px;	
+}
+#preview {
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	margin: auto;
 }
 .title-fieldset, .category-fieldset {
 	width: 100%;
 	background-color: #FFFFFF;
 	display: flex;
 	flex-direction: column;
+	margin: 10px 0 7px 0;
 }
-.title-fieldset label, .category-fieldset label {
-	background-color: #FFFFFF;
-	margin: 30px 0 17px 0;
-}
-.title-fieldset input, .category-fieldset select {
+#new-title, #choice-category {
+	width: 100%;
 	height: 51px;
 	background-color: #FFFFFF;
 	border:none;
 	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
 }
-.category-fieldset {
-	padding-bottom: 47px;
+.choice-fieldset {
 	border-bottom: 1px solid #B3B3B3;
+	padding-bottom: 47px;
 }
-#add-project{
+.submitButton {
 	width: 57%;
 	height: 36px;
 	font-family: 'Syne';

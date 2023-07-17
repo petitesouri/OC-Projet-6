@@ -58,7 +58,6 @@ async function callApiFilters(){
                 const foundCategory = Categories.find(category => category.id == idButtonHtml);
                 const foundWork = Gallery.filter(work => work.categoryId == idButtonHtml);               
                 const sectionGallery = document.querySelector('.gallery');
-
                 foundWork.forEach(project => {
                     const projectElement = `
                         <figure data-id="${project.id}">
@@ -74,7 +73,6 @@ async function callApiFilters(){
                 // affichage des works filtrés
                 function showWorksFilter(){           
                     const sectionGallery = document.querySelector('.gallery'); 
-
                     foundWork.forEach(project => {
                         const projectElement = `
                             <figure data-id="${project.id}">
@@ -90,8 +88,7 @@ async function callApiFilters(){
                 // si "tous" alors affiche la gallery sinon affiche les works filtrés
                 if (idButtonHtml == 'tous') {
                     function showWorks(){            
-                        const sectionGallery = document.querySelector('.gallery');
-                        
+                        const sectionGallery = document.querySelector('.gallery'); 
                         Gallery.forEach(project => {
                             const projectElement = `
                                 <figure data-id="${project.id}">
