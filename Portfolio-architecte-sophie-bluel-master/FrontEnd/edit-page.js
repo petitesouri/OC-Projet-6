@@ -37,25 +37,5 @@ if (localStorage.getItem('token') != null) {
         localStorage.clear();
         window.location.href = 'index.html';
     });
-    
-    // Ouverture et fermeture de la modale
-    const buttons = document.querySelectorAll('.js-modal')
-    const modal = document.querySelector('#modal1')
-    const close = document.querySelector('.js-modal-close')
-
-    function openmodal(e) {
-        e.preventDefault()        
-        modal.style.display = 'flex'
-    }
-
-    function closemodal(e) {
-        e.preventDefault()
-        modal.style.display = 'none'
-    }  
-    
-    buttons.forEach(button => {
-        button.addEventListener('click', openmodal)
-    })
-    close.addEventListener('click', closemodal)
 }
 

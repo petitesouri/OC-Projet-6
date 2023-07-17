@@ -4,32 +4,28 @@ async function callApiWorks(){
     const url = "http://localhost:5678/api/works";
     const fetcher = await fetch(url);
     const Gallery = await fetcher.json();
-    
-    function showWorks(){            
-        const sectionGallery = document.querySelector('.gallery');
+
+    const sectionGallery = document.querySelector('.gallery');
         
-        Gallery.forEach(project => {
-            const projectElement = `
-                <figure>
-                    <img src="${project.imageUrl}" alt="${project.title}">
-                    <figcaption>
-                    ${project.title}
-                    </figcaption>
-                </figure>
-            `        
-            sectionGallery.insertAdjacentHTML("beforeend", projectElement)
-        })
-    }
-    showWorks();
+    Gallery.forEach(project => {
+        const projectElement = `
+            <figure data-id="${project.id}">
+                <img src="${project.imageUrl}" alt="${project.title}">
+                <figcaption>
+                ${project.title}
+                </figcaption>
+            </figure>
+        `        
+        sectionGallery.insertAdjacentHTML("beforeend", projectElement)         
+    })
 }
 
 // Affichage filtres 
-
 async function callApiFilters(){
     const url = "http://localhost:5678/api/categories";
     const fetcher = await fetch(url);
     const Categories = await fetcher.json();
-
+    
     function showButtons() {        
         const button = `
             <button class="tous">
@@ -46,8 +42,9 @@ async function callApiFilters(){
         }
     } 
     showButtons();
-
+    
     // Eventlistener
+    
     async function callApiWorks(){
         const url = "http://localhost:5678/api/works";
         const fetcher = await fetch(url);
@@ -64,7 +61,7 @@ async function callApiFilters(){
 
                 foundWork.forEach(project => {
                     const projectElement = `
-                        <figure>
+                        <figure data-id="${project.id}">
                             <img src="${project.imageUrl}" alt="${project.title}">
                             <figcaption>
                             ${project.title}
@@ -80,7 +77,7 @@ async function callApiFilters(){
 
                     foundWork.forEach(project => {
                         const projectElement = `
-                            <figure>
+                            <figure data-id="${project.id}">
                                 <img src="${project.imageUrl}" alt="${project.title}">
                                 <figcaption>
                                 ${project.title}
@@ -97,7 +94,7 @@ async function callApiFilters(){
                         
                         Gallery.forEach(project => {
                             const projectElement = `
-                                <figure>
+                                <figure data-id="${project.id}">
                                     <img src="${project.imageUrl}" alt="${project.title}">
                                     <figcaption>
                                     ${project.title}

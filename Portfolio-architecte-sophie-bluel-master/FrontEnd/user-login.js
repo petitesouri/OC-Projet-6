@@ -34,12 +34,11 @@ form.addEventListener('submit', async (event) =>  {
         body.addEventListener ('click',() => {
             const positionMessage = document.querySelector('#login-form .alert'); 
             positionMessage.remove(); 
-            form.reset();
         });  
     };
     
     if (data.token) {       
-        localStorage.setItem('token', 'admin');
+        localStorage.setItem('token', data.token);
         window.location.href = "index.html";
     }   
 });

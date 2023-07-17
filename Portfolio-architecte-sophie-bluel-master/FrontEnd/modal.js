@@ -1,26 +1,22 @@
-// modifier 'mode edition' qui n'est pas un bouton 
-// bien penser l'imbrication dans la modale de plusieurs fenetres d'édition
-// la flèche pour les déplacer
-
 // Accueil modale
-
 function openmodal () {
     const localisationModal = document.querySelector('main');
     const modal = `
     <dialog id="modal1">
-        <form method="dialog" class="dialogBox">
-                <button class="js-modal-close"><i class="fa-solid fa-x"></i></button>                
-                <h2 class="title-modal"> Galerie photo </h2>
-                <div class="modal-gallery"></div>
-                <button class="add-project">Ajouter une photo</button>
-                <button class="delete-project">Supprimer une photo</button>                
-        </form>
+        <div class="modal-homepage">
+            <form method="dialog" class="dialogBox">                
+                    <button class="js-modal-close"><i class="fa-solid fa-x"></i></button>                
+                    <h2 class="title-modal"> Galerie photo </h2>
+                    <div class="modal-gallery"></div>
+                    <input type="button" class="add-project" value="Ajouter une photo"></input>
+                    <button class="delete-project">Supprimer une photo</button>                
+            </form>
+        </div>
     </dialog>
     `
-    localisationModal.insertAdjacentHTML('afterbegin', modal);    
-}
-openmodal();
-
+    localisationModal.insertAdjacentHTML('afterbegin', modal);
+}  
+openmodal()
 
 // affichage de la galerie dans la modale
 async function callApiWorks(){
@@ -32,18 +28,40 @@ async function callApiWorks(){
         const modalGallery = document.querySelector('.modal-gallery');
         for (let i = 0; i < Gallery.length; i++) {
             const project = `
-            <figure  class="modal-cards ${Gallery[i].id}">
+            <figure data-id="${Gallery[i].id}" class="modal-cards">
                 <i id="${Gallery[i].id}" class="fa-regular fa-trash-can"></i>
                 <img src="${Gallery[i].imageUrl}" alt="${Gallery[i].title}">
                 <figcaption>éditer</figcaption>
             </figure>             
             `                
-            modalGallery.insertAdjacentHTML("afterbegin", project)
+            modalGallery.insertAdjacentHTML("beforeend", project)
         }
     }
-    showWorks();    
+    showWorks(); 
 }
 callApiWorks();
+
+// Ouverture de la modale
+const buttons = document.querySelectorAll('.js-modal')
+const modal = document.querySelector('#modal1')
+const close = document.querySelector('.js-modal-close')
+const modalHomepage = document.querySelector('.modal-homepage');
+
+buttons.forEach (button => 
+    button.addEventListener('click', (e) => {
+        e.preventDefault;
+        modal.style.display = 'flex'
+        modalHomepage.style.display = 'flex'
+    })
+)
+// Fermeture de la modale
+const closeModal = () => {
+    close.addEventListener ('click', (e) => {
+        e.preventDefault;
+        modal.style.display = 'none'
+    })
+}
+closeModal()
 
 // suppression d'un élément de la gallery
 
@@ -55,28 +73,20 @@ async function deleteApiWorks(){
     const Trash = document.querySelectorAll('.fa-trash-can');   
     const Cards = document.querySelectorAll('.modal-cards')
 
-    console.log(Cards)
-    
-    // Fonctionne en console.log ATTENTION  ma galerie est inversée --> voir le display sur la balise
-    Trash.forEach(icon => {
-        icon.addEventListener('click', (e) => {
-            e.preventDefault();
+    Trash.forEach(el => {
+        el.addEventListener('click', (e) => {
+            // On récupère l'id de l'élément sur lequel on a cliqué
+            const id = e.target.id;
 
-            for (let id of Gallery) {                 
-                if (id.id == icon.id) {  
-                    let currentID = id.id;
-                    let deleteCard = Cards[currentID];
-
-                    Gallery.splice({currentID},1);
-                    deleteCard.remove();
-                    console.log(Gallery)
-                // suppression du projet dans l'API   
-                    const htppRef = {id: parseInt(currentID)}
-                    const idAPI = JSON.stringify(htppRef)
-                    
-                    fetch(`http://localhost:5678/api/works/${currentID}`, {method: 'DELETE',body:idAPI}); 
-                }                
-            }      
+            // On fait la requête à l'API avec l'ID en paramètre
+            fetch(`http://localhost:5678/api/works/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            const datas = document.querySelectorAll(`figure[data-id="${id}"]`)
+            datas.forEach(el => el.remove())
         })
     })
 }

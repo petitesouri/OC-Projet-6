@@ -378,15 +378,20 @@ button.js-modal.main {
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.4);
 }
-.dialogBox {
+.dialogBox, .modal-add-project {
 	background-color: #FFFFFF;
 	width: 630px;
 	height: 731px;
 	border-radius: 10px;
-	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: 10px;
+}
+.dialogBox{
+	display: flex;
+}
+.modal-add-project{
+	display: none;
 }
 .js-modal-close {
 	font-size: 24px;
@@ -394,6 +399,10 @@ button.js-modal.main {
 	padding: 0;
 	margin: 26px 30px 0 0;
 	border: none;
+}
+.js-modal-close:hover{
+	color: #1D6154;
+    background-color: white;
 }
 .title-modal {
 	color: black;
@@ -446,4 +455,108 @@ button.js-modal.main {
 	position: absolute;
 	top: 6px;
 	right: 6px;
+}
+
+/** Modal Add Project **/
+.modal-add-project {
+	height: 670px;
+	padding: 26px 30px 55px 30px;
+}
+.close-modal-add-project {
+	width: 100%;
+	background-color: #FFFFFF;
+	display:flex;
+	justify-content: space-between;
+	.js-modal-close {
+		color: black;
+		display: flex;
+		align-items: flex-start;
+		margin: 0;
+	}
+}
+.modal-add-project form{
+	width: 74%;
+	background-color: #FFFFFF;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+#image-fieldset {
+	width: 100%;
+	height: 169px;
+	background-color: #E8F1F6;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 7px;
+	padding: 21px 0;
+	.fa-image {
+		color: #B9C5CC;
+		font-size: 58px;
+		background-color: #E8F1F6;
+		margin: 8px;
+	}
+}
+#new-image input{
+	height: 36px;
+}
+.preview-box {
+	width: 90%;
+	height: 169px;
+	background-color: #E8F1F6;
+	display: none;
+    position: relative;
+    bottom: 110px;	
+}
+#preview {
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	margin: auto;
+}
+#image-fieldset span {
+	font-family: 'Work Sans';
+	font-size: 10px;
+	background-color: #E8F1F6;
+}
+#new-image {
+    width: 35%;
+	height: 36px;
+	color: #306685;
+	font-family: 'Work Sans';
+	background-color: #CBD6DC;
+	border: none;
+	border-radius: 50px;
+}
+.title-fieldset, .category-fieldset {
+	width: 100%;
+	background-color: #FFFFFF;
+	display: flex;
+	flex-direction: column;
+}
+.title-fieldset label, .category-fieldset label {
+	background-color: #FFFFFF;
+	margin: 30px 0 17px 0;
+}
+.title-fieldset input, .category-fieldset select {
+	height: 51px;
+	background-color: #FFFFFF;
+	border:none;
+	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+}
+.category-fieldset {
+	padding-bottom: 47px;
+	border-bottom: 1px solid #B3B3B3;
+}
+#add-project{
+	width: 57%;
+	height: 36px;
+	font-family: 'Syne';
+	font-size: 14px;
+	font-weight: 700;
+	color: #FFFFFF;
+	background-color: #a7a7a7;
+	border: none;
+	border-radius: 60px;
+	margin: 32px auto 55px auto;
 }
