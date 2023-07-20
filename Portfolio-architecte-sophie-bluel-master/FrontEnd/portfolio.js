@@ -1,5 +1,4 @@
 // Affichage gallery
-
 async function callApiWorks(){
     const url = "http://localhost:5678/api/works";
     const fetcher = await fetch(url);
@@ -7,112 +6,62 @@ async function callApiWorks(){
 
     const sectionGallery = document.querySelector('.gallery');
         
-    Gallery.forEach(project => {
-        const projectElement = `
-            <figure data-id="${project.id}">
-                <img src="${project.imageUrl}" alt="${project.title}">
-                <figcaption>
-                ${project.title}
-                </figcaption>
-            </figure>
-        `        
-        sectionGallery.insertAdjacentHTML("beforeend", projectElement)         
-    })
-}
-
-// Affichage filtres 
-async function callApiFilters(){
-    const url = "http://localhost:5678/api/categories";
-    const fetcher = await fetch(url);
-    const Categories = await fetcher.json();
-    
-    function showButtons() {        
-        const button = `
-            <button class="tous">
-                Tous
-            </button>`                
-        document.querySelector('.filters').insertAdjacentHTML("beforeend", button)
-        
-        for (let i = 0; i < Categories.length; i++) {
-            const button = `
-            <button class="${Categories[i].id}">
-                ${Categories[i].name}
-            </button>`                
-            document.querySelector('.filters').insertAdjacentHTML("beforeend", button)
-        }
-    } 
-    showButtons();
-    
-    // Eventlistener
-    
-    async function callApiWorks(){
-        const url = "http://localhost:5678/api/works";
-        const fetcher = await fetch(url);
-        const Gallery = await fetcher.json();
-    
-        const buttons = document.querySelectorAll('.filters button');
-
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                const idButtonHtml = button.className;
-                const foundCategory = Categories.find(category => category.id == idButtonHtml);
-                const foundWork = Gallery.filter(work => work.categoryId == idButtonHtml);               
-                const sectionGallery = document.querySelector('.gallery');
-                foundWork.forEach(project => {
-                    const projectElement = `
-                        <figure data-id="${project.id}">
-                            <img src="${project.imageUrl}" alt="${project.title}">
-                            <figcaption>
-                            ${project.title}
-                            </figcaption>
-                        </figure>
-                    `        
-                    sectionGallery.innerHTML = '';
-                })
-
-                // affichage des works filtrés
-                function showWorksFilter(){           
-                    const sectionGallery = document.querySelector('.gallery'); 
-                    foundWork.forEach(project => {
-                        const projectElement = `
-                            <figure data-id="${project.id}">
-                                <img src="${project.imageUrl}" alt="${project.title}">
-                                <figcaption>
-                                ${project.title}
-                                </figcaption>
-                            </figure>
-                        `        
-                        sectionGallery.insertAdjacentHTML("beforeend", projectElement)
-                    })
-                }  
-                // si "tous" alors affiche la gallery sinon affiche les works filtrés
-                if (idButtonHtml == 'tous') {
-                    function showWorks(){            
-                        const sectionGallery = document.querySelector('.gallery'); 
-                        Gallery.forEach(project => {
-                            const projectElement = `
-                                <figure data-id="${project.id}">
-                                    <img src="${project.imageUrl}" alt="${project.title}">
-                                    <figcaption>
-                                    ${project.title}
-                                    </figcaption>
-                                </figure>
-                            `        
-                            sectionGallery.insertAdjacentHTML("beforeend", projectElement)
-                        })
-                    }
-                    showWorks();
-                } else {
-                    showWorksFilter();
-                }                
-            })
+    function showProjects (ArrayArgument) {
+        ArrayArgument.forEach(project => {
+            const projectElement = `
+                <figure data-id="${project.id}">
+                    <img src="${project.imageUrl}" alt="${project.title}">
+                    <figcaption>
+                    ${project.title}
+                    </figcaption>
+                </figure>
+            `        
+            sectionGallery.insertAdjacentHTML("beforeend", projectElement)         
         })
     }
-    callApiWorks();
-}
+    showProjects(Gallery)
+    
+    // Affichage filtres 
+    async function callApiFilters(){
+        const url = "http://localhost:5678/api/categories";
+        const fetcher = await fetch(url);
+        const Categories = await fetcher.json();
+        
+        function showButtons() {        
+            const button = `
+                <button class="tous">
+                    Tous
+                </button>`                
+            document.querySelector('.filters').insertAdjacentHTML("beforeend", button)
+            
+            for (let i = 0; i < Categories.length; i++) {
+                const button = `
+                <button class="${Categories[i].id}">
+                    ${Categories[i].name}
+                </button>`                
+                document.querySelector('.filters').insertAdjacentHTML("beforeend", button)
+            }
+        } 
+        showButtons();
 
-const init = () => {
+        function callElementFilter () {
+            const buttons = document.querySelectorAll('.filters button');
+            
+            buttons.forEach (button => {
+                button.addEventListener('click', (e) => {
+                    const foundWork = Gallery.filter(work => work.categoryId == button.className);                    
+                    if (button.className != 'tous') {
+                        sectionGallery.innerHTML = '';
+                        showProjects(foundWork);
+                    } else {
+                        sectionGallery.innerHTML = '';
+                        showProjects(Gallery)
+                    }
+                })
+            })
+        }
+        callElementFilter();
+    }
     callApiFilters();
-    callApiWorks();
 }
-init();
+callApiWorks();

@@ -12,7 +12,7 @@ function addProject () {
         <form id="addForm">
             <label for="new-image" class="image-fieldset">
                 <i class="fa-regular fa-image"></i>
-                <input id="new-image" type="file" name="imageUrl" accept=".jpg,.jpeg, .png"></input>
+                <input id="new-image" type="file" name="image" accept=".jpg,.jpeg, .png"></input>
                 <button class="add-button">+ Ajouter photo</button>
                 <span class="image-fieldset__span">jpg, png : 4mo max </span>
                 <div class="preview-box">
@@ -23,11 +23,11 @@ function addProject () {
                 <label for="new-title" class="title-fieldset">Titre </label>
                 <input type="text" name="title" id="new-title">
                 <label for="choice-category" class="category-fieldset">Catégorie </label>
-                <select name="categoryId" id="choice-category">
+                <select name="category" id="choice-category">
                         <option value=""></option>   
                 </select>
             </div>
-            <button class='submitButton'>Valider</button>
+            <button type='button' class='submitButton'>Valider</button>
         </form>
     </div>
     `
@@ -56,7 +56,7 @@ function addProject () {
 
         for (let i = 0; i < Categories.length; i++) {
             const categoryId = `
-            <option value="${Categories[i].name}">${Categories[i].name}</option>
+            <option value="${Categories[i].id}">${Categories[i].name}</option>
             `
         insertCategory.insertAdjacentHTML('beforeend', categoryId);
         }
@@ -72,7 +72,7 @@ const modalAddProject = document.querySelector('.modal-add-project');
 addButton.addEventListener('click', (e) => {
     e.preventDefault();
     modalHomepage.style.display = 'none';
-    modalAddProject.style.display = 'flex';    
+    modalAddProject.style.display = 'flex';   
 })
 
 // fermeture de la modale 
@@ -86,6 +86,8 @@ closeButton.addEventListener('click', (e) =>{
         modalHomepage.style.display = 'flex'
     }
 })
+
+
 // go back
 const gobackButton = document.querySelector('.goback-button')  
 
@@ -97,49 +99,27 @@ gobackButton.addEventListener('click', (e) => {
 
 // Envoie du formData
 const submitButton = document.querySelector('.submitButton')
-const addForm = document.querySelector('#addForm')
+const previewBox = document.querySelector('.preview-box')
 
-addForm.addEventListener('submit', sendForm);
+submitButton.addEventListener('click', sendForm)
 
-function sendForm (e) {
-    e.preventDefault();
+async function sendForm () {
 
     const formData = new FormData(addForm);
-    //const id = formData.append('id', '0')
-    const title = formData.get('title');
-    const categoryId = document.querySelector('#choice-category').selectedIndex;
-    const image = document.querySelector('#new-image').value;
-    //const userId = formData.append('userId', '0')
-    //const newForm = {id: Number(id), title, image, categoryId, userId: Number(userId)}
-    const newForm = {'title': title, 'imageUrl': image, 'categoryId' : categoryId}
-    saveFormData(newForm);
-    AuthorizationAPI();
-    sendAPI();
-}
+    formData.delete('image')
+    const imageInput = document.querySelector('#new-image')
+    formData.append('image', imageInput.files[0])
 
-function saveFormData(Form) {
-    let Forms = JSON.parse(localStorage.getItem("Forms")) || []
-    Forms = [...Forms, Form];
-    localStorage.setItem("Forms", JSON.stringify(Forms));
-}
-
-async function AuthorizationAPI () {
-    const fetcher = await fetch(`http://localhost:5678/api/works`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-    });
-}
-AuthorizationAPI();
-
-async function sendAPI () {
     const fetcher = await fetch(`http://localhost:5678/api/works`, {
         method: 'POST',
         headers: {
-            'content-Type': "multipart/form-data,",
-            //'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
-        body: `${localStorage.getItem('Forms')}`,
+        body: formData,
     });
+    modalAddProject.style.display = 'none'
+    
+    previewBox.style.display = 'none'
+    addForm.reset()
+    modalHomepage.style.display = 'flex';
 }

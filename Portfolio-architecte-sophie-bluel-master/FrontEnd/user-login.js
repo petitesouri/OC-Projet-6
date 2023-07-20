@@ -32,8 +32,10 @@ form.addEventListener('submit', async (event) =>  {
         // effacer alerte au click sur la page
         const body = document.querySelector('body');
         body.addEventListener ('click',() => {
-            const positionMessage = document.querySelector('#login-form .alert'); 
-            positionMessage.remove(); 
+            const textMessage = document.querySelector('#login-form .alert');  
+            if (textMessage != null) {
+            textMessage.remove()
+            }
         });  
     };
     

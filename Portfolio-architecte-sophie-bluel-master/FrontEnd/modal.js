@@ -19,6 +19,7 @@ function openmodal () {
 openmodal()
 
 // affichage de la galerie dans la modale
+
 async function callApiWorks(){
     const url = "http://localhost:5678/api/works";
     const fetcher = await fetch(url);
@@ -75,10 +76,8 @@ async function deleteApiWorks(){
 
     Trash.forEach(el => {
         el.addEventListener('click', (e) => {
-            // On récupère l'id de l'élément sur lequel on a cliqué
             const id = e.target.id;
 
-            // On fait la requête à l'API avec l'ID en paramètre
             fetch(`http://localhost:5678/api/works/${id}`, {
                 method: 'DELETE',
                 headers: {
