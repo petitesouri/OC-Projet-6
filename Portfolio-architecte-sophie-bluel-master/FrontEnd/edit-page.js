@@ -9,9 +9,9 @@ if (localStorage.getItem('token') != null) {
 
     const editIndex = `
         <div class="edit-nav">                       
-            <button href="#modal1" class="js-modal header">
+            <span href="#modal1" class="js-modal header">
                 <i class="fa-regular fa-pen-to-square"></i>Mode édition
-            </button>
+            </span>
             <button href="#modal1" class="js-modal header">Publier les changements</button>           
         </div>
     `
@@ -26,9 +26,9 @@ if (localStorage.getItem('token') != null) {
     filtersEdit.style.display = 'none';
     portfolioEdit.insertAdjacentHTML('beforebegin', editIntroduction);   
        
-
+    const editPage = document.querySelector('main')
+    
     // fonction logout
-
     const login = document.querySelector('.login');
     login.innerHTML = 'Logout';
 

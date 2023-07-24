@@ -47,32 +47,27 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-* {
+ * {
 	background-color: #FFFEF8;
 	box-sizing: border-box;
-}
-
-*:focus {
-	box-shadow: 0 0 2px blue;	
-}
-
+} 
 body {
 	max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
-
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 79px;
+}
 header {
 	display: flex;
 	justify-content: space-between;
 	margin: 50px 0;
 }
-
-section {
-	margin: 50px 0;
-}
-
 h1{
 	display: flex;
 	flex-direction: column;
@@ -81,104 +76,76 @@ h1{
 	font-weight: 800;
 	color: #B1663C;
 }
-
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
 }
-
 h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
 	color: #1D6154;
 }
-
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-}
-
+} 
 a {
 	text-decoration: none;
 }
-
 a:visited {
 	color:black;
 }
-
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
 }
-
-li:hover {
+li:hover, a:hover {
 	color: #B1663C;
 }
-
-#introduction {
+#introduction, #portfolio {
+	width:  83.2%;
 	display: flex;
 	align-items: center;
 }
-
-#introduction figure {
-	flex: 1;
-}
-
 #introduction img {
 	display: block;
-	margin: auto;
-	width: 80%;
+	width: 86.8%;
 }
-
 #introduction article {
-	flex: 1;
+	width: 56%;
 }
 #introduction h2 {
 	margin-bottom: 1em;
 }
-
 #introduction p {
 	margin-bottom: 0.5em;
 }
-
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
+#portfolio{
+	flex-direction: column;
+	gap: 51px;
 }
-
-#portfolio .portfolio-title {
-	display: flex;
-	justify-content: center;
-    align-items: center;
-	gap: 50px;
-}
-#portfolio .edit-Mode-Portfolio {
-	display: none;
-	margin-bottom: 2em;
-}
-
 .gallery {
-	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+	column-gap: 17px;
+	row-gap: 35px;
+	margin: auto;
 }
-
 .gallery img {
 	width: 100%;
 	height: 100%;
 }
-
+.gallery figcaption {
+	margin: 7px 0 20px 0;
+}
 .filters{
 	display: flex;
 	justify-content: center;
 	gap: 10px;
 }
-
 button {
 	color:#1D6154;
 	background-color:white;
@@ -188,48 +155,39 @@ button {
 	padding: 9px 22px;
 	margin-bottom: 25px;
 }
-
 button:hover{
 	color:white;
 	background-color:#1D6154;
 }
-
 #contact {
 	width: 50%;
 	margin: auto;
 }
-
 #contact > * {
 	text-align: center;
 }
-
 #contact h2{
 	margin-bottom: 20px;
 }
-
 #contact form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
-
 #contact input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-
 #contact label {
 	margin: 2em 0 1em 0;
 }
-
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-
 input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -240,65 +198,48 @@ input[type="submit"]{
 	text-align: center;
 	border-radius: 60px ;
 }
-
 footer nav ul {
+	width: 104%;
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em;
+	margin: 69px 107px 20px auto;
 }
 
 /** login Page  **/
-
-.header-login-page nav ul {
-	gap: 44px;
-}
-
-.header-login-page nav ul li{
-	padding: 0;
-}
-
 .main-login-page {
-	width: 37%;
-	margin: 131px auto;
+	width: 33.3%;
+	margin: 136px auto;
+	gap: 37px;
 }
-
 .main-login-page h1 {
 	font-size: 30px;
 	font-weight: 700;
 	color:#1D6154;
-	text-align: center;
-	margin:25px auto;
 }
-
 .main-login-page #login-form {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	gap: 7px;
 }
-
 #email,  #password {
-	width: 100%;
 	height: 51px;
 	background-color: white;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	border: none;
 }
-
 .main-login-page label {
 	margin-top: 25px;
 }
-
 #connexion {
 	height: 36px;
 	margin: 2em auto 1.5em auto;
 	transition: all 300ms;
 }
-
 #connexion:hover{
 	transform: scale(1.15);
 	transition: all 200ms;
 }
-
 #mot-de-passe {
 	color: #3D3D3D;
 	text-decoration: underline;
@@ -306,18 +247,22 @@ footer nav ul {
 	border: none;
 	margin: 0 auto;
 }
+.alert {
+	color: red;
+	margin: auto;
+}
 
 /** Edit Homepage **/
 .edit-nav{
-	background-color: black;
-}
-.edit-nav{
-	width: 100%;
+	width: 130%;
+	max-width: 1440px;
 	height: 59px;
+	background-color: black;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	gap: 21px;
+	margin-inline-start: -150px;
 }
 .js-modal{
 	font-family: "work Sans";
@@ -328,40 +273,35 @@ footer nav ul {
 	gap: 8px;
 	margin-bottom: 0;
 }
-
 .js-modal.header {
 	background-color: black;
 	color: white;
-	padding: 9px 13px;
-	&:hover{
-		color: black;
-		background-color: white;
-		border-radius: 30px;
-		.fa-pen-to-square {
-			background-color: #FFFFFF;
-		}
-	}
-	.fa-pen-to-square {
-		background-color: black;
-	}
 }
-
+.edit-nav .fa-pen-to-square {
+	background-color: black;
+}
+.edit-nav button:hover {
+	height: 38px;
+	color: black;
+	background-color: white;
+	border-radius: 30px;
+	padding: 11px 23px;
+}
 button.js-modal.main {
 	color: black;
 	border: none;
-	padding: 15px;
-	&:hover {
-		background-color: #FFFFFF;
-	}
+	padding: 15px 0;
 }
-#introduction .js-modal {
-	margin-left:40px;
+button.js-modal.main:hover {
+	background-color: #FFFFFF;
+}
+#portfolio h2 {
+	position: absolute;
 }
 #portfolio .js-modal {
 	position: relative;
-	bottom: 65px;
+	bottom: 5px;
 	left: 162px;
-	margin: auto;
 }
 
 /** modal **/
@@ -466,13 +406,13 @@ button.js-modal.main {
 	width: 100%;
 	background-color: #FFFFFF;
 	display:flex;
-	justify-content: space-between;
-	.js-modal-close {
-		color: black;
-		display: flex;
-		align-items: flex-start;
-		margin: 0;
-	}
+	justify-content: space-between;	
+}
+.close-modal-add-project .js-modal-close {
+	color: black;
+	display: flex;
+	align-items: flex-start;
+	margin: 0;
 }
 #addForm {
 	width: 74%;
@@ -490,12 +430,12 @@ button.js-modal.main {
 	gap: 7px;
 	margin: 20px 0 10px 0;
 	position: relative;
-	.fa-image {
-		color: #B9C5CC;
-		font-size: 58px;
-		background-color: #E8F1F6;
-		margin: 22px 0 15px 0;
-	}
+}
+.image-fieldset .fa-image {
+	color: #B9C5CC;
+	font-size: 58px;
+	background-color: #E8F1F6;
+	margin: 22px 0 15px 0;
 }
 .image-fieldset__span {
 	font-family: 'Work Sans';

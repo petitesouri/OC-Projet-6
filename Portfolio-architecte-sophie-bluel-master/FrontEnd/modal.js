@@ -27,6 +27,7 @@ async function callApiWorks(){
     
     function showWorks(){            
         const modalGallery = document.querySelector('.modal-gallery');
+
         for (let i = 0; i < Gallery.length; i++) {
             const project = `
             <figure data-id="${Gallery[i].id}" class="modal-cards">
@@ -39,8 +40,31 @@ async function callApiWorks(){
         }
     }
     showWorks(); 
+
+    // suppression d'un élément de la gallery
+
+    async function deleteApiWorks(){
+        const Trash = document.querySelectorAll('.fa-trash-can');   
+        const Cards = document.querySelectorAll('.modal-cards')
+
+        Trash.forEach(el => {
+            el.addEventListener('click', (e) => {
+                const id = e.target.id;
+
+                fetch(`http://localhost:5678/api/works/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+            const datas = document.querySelectorAll(`figure[data-id="${id}"]`)
+            datas.forEach(el => el.remove())
+            })
+        })
+    }
+    deleteApiWorks()
 }
-callApiWorks();
+//callApiWorks();
 
 // Ouverture de la modale
 const buttons = document.querySelectorAll('.js-modal')
@@ -63,30 +87,3 @@ const closeModal = () => {
     })
 }
 closeModal()
-
-// suppression d'un élément de la gallery
-
-async function deleteApiWorks(){
-        const url = "http://localhost:5678/api/works";
-        const fetcher = await fetch(url);
-        const Gallery = await fetcher.json();
-
-    const Trash = document.querySelectorAll('.fa-trash-can');   
-    const Cards = document.querySelectorAll('.modal-cards')
-
-    Trash.forEach(el => {
-        el.addEventListener('click', (e) => {
-            const id = e.target.id;
-
-            fetch(`http://localhost:5678/api/works/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            });
-            const datas = document.querySelectorAll(`figure[data-id="${id}"]`)
-            datas.forEach(el => el.remove())
-        })
-    })
-}
-deleteApiWorks()

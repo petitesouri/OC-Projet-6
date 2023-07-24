@@ -25,7 +25,6 @@ form.addEventListener('submit', async (event) =>  {
                 </div>           
                 `;
             positionMessage.insertAdjacentHTML('beforeend', textMessage);
-            document.querySelector('.alert').style.color = 'red';
         }
         showMessage();
 

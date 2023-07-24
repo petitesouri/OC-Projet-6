@@ -1,3 +1,4 @@
+callApiWorks()
 const addBox = document.querySelector('#modal1');
 
 function addProject () {
@@ -87,7 +88,6 @@ closeButton.addEventListener('click', (e) =>{
     }
 })
 
-
 // go back
 const gobackButton = document.querySelector('.goback-button')  
 
@@ -104,7 +104,6 @@ const previewBox = document.querySelector('.preview-box')
 submitButton.addEventListener('click', sendForm)
 
 async function sendForm () {
-
     const formData = new FormData(addForm);
     formData.delete('image')
     const imageInput = document.querySelector('#new-image')
@@ -118,8 +117,11 @@ async function sendForm () {
         body: formData,
     });
     modalAddProject.style.display = 'none'
-    
     previewBox.style.display = 'none'
     addForm.reset()
     modalHomepage.style.display = 'flex';
+
+    const modalGallery = document.querySelector('.modal-gallery');
+    modalGallery.innerHTML = '';
+    callApiWorks()
 }
