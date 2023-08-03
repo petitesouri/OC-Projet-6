@@ -124,4 +124,22 @@ async function sendForm () {
     const modalGallery = document.querySelector('.modal-gallery');
     modalGallery.innerHTML = '';
     callApiWorks()
+
+    /** ça ne marche plus a partir d'ici */
+
+    const data = await fetcher.json();
+    const sectionGallery = document.querySelector('.gallery');
+
+    function createProject(data) {
+        const projectElement = `
+                <figure id="${data.id}">
+                    <img src="${data.imageUrl}" alt="${data.title}">
+                    <figcaption>
+                    ${data.title}
+                    </figcaption>
+                </figure>
+            `  
+        sectionGallery.insertAdjacentHTML('beforeend',projectElement)      
+    }
+    createProject(data)    
 }

@@ -9,7 +9,7 @@ async function callApiWorks(){
     function showProjects (ArrayArgument) {
         ArrayArgument.forEach(project => {
             const projectElement = `
-                <figure data-id="${project.id}">
+                <figure id="${project.id}">
                     <img src="${project.imageUrl}" alt="${project.title}">
                     <figcaption>
                     ${project.title}

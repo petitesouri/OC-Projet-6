@@ -9,7 +9,7 @@ function openmodal () {
                     <h2 class="title-modal"> Galerie photo </h2>
                     <div class="modal-gallery"></div>
                     <input type="button" class="add-project" value="Ajouter une photo"></input>
-                    <button class="delete-project">Supprimer une photo</button>                
+                    <button class="delete-project">Supprimer la galerie</button>                
             </form>
         </div>
     </dialog>
@@ -30,7 +30,7 @@ async function callApiWorks(){
 
         for (let i = 0; i < Gallery.length; i++) {
             const project = `
-            <figure data-id="${Gallery[i].id}" class="modal-cards">
+            <figure id="${Gallery[i].id}" class="modal-cards">
                 <i id="${Gallery[i].id}" class="fa-regular fa-trash-can"></i>
                 <img src="${Gallery[i].imageUrl}" alt="${Gallery[i].title}">
                 <figcaption>éditer</figcaption>
@@ -46,6 +46,7 @@ async function callApiWorks(){
     async function deleteApiWorks(){
         const Trash = document.querySelectorAll('.fa-trash-can');   
         const Cards = document.querySelectorAll('.modal-cards')
+        const deleteProject = document.querySelector('.delete-project')
 
         Trash.forEach(el => {
             el.addEventListener('click', (e) => {
@@ -57,14 +58,27 @@ async function callApiWorks(){
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 });
-            const datas = document.querySelectorAll(`figure[data-id="${id}"]`)
+            const datas = document.querySelectorAll(`figure[id="${id}"]`)
             datas.forEach(el => el.remove())
             })
+        })
+        deleteProject.addEventListener('click', () => {
+            Cards.forEach(card => {                
+                const id = card.id;
+
+                fetch(`http://localhost:5678/api/works/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                const datas = document.querySelectorAll(`figure[id="${id}"]`)
+                datas.forEach(el => el.remove())
+            }) 
         })
     }
     deleteApiWorks()
 }
-//callApiWorks();
 
 // Ouverture de la modale
 const buttons = document.querySelectorAll('.js-modal')

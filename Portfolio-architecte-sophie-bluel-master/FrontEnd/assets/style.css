@@ -295,9 +295,6 @@ button.js-modal.main {
 button.js-modal.main:hover {
 	background-color: #FFFFFF;
 }
-#portfolio h2 {
-	position: absolute;
-}
 #portfolio .js-modal {
 	position: relative;
 	bottom: 5px;
