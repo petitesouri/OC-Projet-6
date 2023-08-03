@@ -28,7 +28,7 @@ form.addEventListener('submit', async (event) =>  {
         }
         showMessage();
 
-        // effacer alerte au click sur la page
+        // efface alerte au click sur la page
         const body = document.querySelector('body');
         body.addEventListener ('click',() => {
             const textMessage = document.querySelector('#login-form .alert');  

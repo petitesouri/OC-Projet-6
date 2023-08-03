@@ -125,7 +125,7 @@ async function sendForm () {
     modalGallery.innerHTML = '';
     callApiWorks()
 
-    /** ça ne marche plus a partir d'ici */
+    // Actualisation galerie portfolio
 
     const data = await fetcher.json();
     const sectionGallery = document.querySelector('.gallery');

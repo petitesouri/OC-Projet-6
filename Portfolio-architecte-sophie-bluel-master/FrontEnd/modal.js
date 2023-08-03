@@ -62,6 +62,9 @@ async function callApiWorks(){
             datas.forEach(el => el.remove())
             })
         })
+
+        // suppression de la gallery
+        
         deleteProject.addEventListener('click', () => {
             Cards.forEach(card => {                
                 const id = card.id;
